@@ -1,0 +1,9 @@
+*.lis
+*.dataset
+*.session.xml
+*.log
+grid*.xml
+temp_gccflags.c
+*.root
+.sl64_gcc447
+StRcpEfficiencyMaker
