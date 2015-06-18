@@ -10,7 +10,7 @@ void doMuDstEvents( const Char_t *fileList = "small.lis",
 					const Char_t *ntuplename = "ntuple.root")
 {
   	Int_t nEvents = 100000000; //1000000;
-  	Int_t nfiles 	= 25;
+  	Int_t nfiles 	= 25000;
 
 	//
 	// First load some shared libraries we need
@@ -20,28 +20,7 @@ void doMuDstEvents( const Char_t *fileList = "small.lis",
 	}  
 	gROOT->LoadMacro("$STAR/StRoot/StMuDSTMaker/COMMON/macros/loadSharedLibraries.C");
 	loadSharedLibraries();
-	/*gSystem->Load("StarMagField");
-	gSystem->Load("StMagF");
-	gSystem->Load("StTpcDb");
-	//  gSystem->Load("StDbUtilities");
-	gSystem->Load("StDaqLib");
-	gSystem->Load("StDbBroker");
-	gSystem->Load("StDetectorDbMaker");
-	gSystem->Load("StDbUtilities");
-	gSystem->Load("St_db_Maker");
-
-	gSystem->Load("StEvent");
-	gSystem->Load("StEventMaker");
-	gSystem->Load("StarMagField");
-
-	gSystem->Load("libtpc_Tables");
-	gSystem->Load("libGeom");
-	gSystem->Load("St_g2t");
-	gSystem->Load("geometry");
-	gSystem->Load("St_geant_Maker");
-
-	gSystem->Load("StBTofUtil");
-	gSystem->Load("StBTofMatchMaker");*/
+	
 	
 	gSystem->Load("StRcpPicoMaker");
 	gSystem->Load("StRefMultCorr");
