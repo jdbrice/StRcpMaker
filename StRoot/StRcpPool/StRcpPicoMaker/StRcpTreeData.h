@@ -11,6 +11,7 @@ struct StRcpTreeData {
 	UShort_t 	bin16;						// bin16
 	UShort_t 	bin9;						// bin9
 	Int_t    	nTracks;      				// These are what we are keeping!!
+											// these are Primary TPC tracks
 
 	/**
 	 * Track variables
@@ -21,6 +22,10 @@ struct StRcpTreeData {
 
 	UShort_t    dedx[kMaxTracks];        	// dEdx * 1000
 	UShort_t    beta[kMaxTracks];         	// beta * 20000
+
+	UChar_t 	matchFlag[ kMaxTracks ];	// tofpid.matchflag
+	Float_t 	yLocal[ kMaxTracks ];		// tofpid.yLocal
+	Float_t 	zLocal[ kMaxTracks ];		// tofpid.zLocal
 
 
 };  

@@ -334,16 +334,13 @@ Bool_t StRcpSkimmer::keepTrack( Int_t iNode ){
 	StThreeVectorF gMom = globalTrack->momentum();
 	float ptRatio = gMom.perp() / pMom.perp();
 
-	StMuBTofPidTraits tofPid = globalTrack->btofPidTraits();
+	
 
 	/**
 	 * Pre Cut Hook
 	 */
 	preTrackCuts( tPrimary );
 
-	if ( tofPid.matchFlag() < 1 )
-		return false;
-	passTrackCut( "matchFlag" );
 	if ( 16 > globalTrack->nHitsFit(kTpcId) )
 		return false;
 	passTrackCut( "nHitsFit" );
@@ -362,19 +359,12 @@ Bool_t StRcpSkimmer::keepTrack( Int_t iNode ){
 
 	if ( pMom.perp() < 0.1 )
 		return false;
-	passTrackCut( "mmtm" );
+	passTrackCut( "pmmtm" );
 
 	if ( tPrimary->dcaGlobal().magnitude() > 1.0 )
 		return false;
 	passTrackCut( "DCA" );
 
-	if ( TMath::Abs( tofPid.yLocal() ) > 1.6 )
-		return false;
-	passTrackCut( "yLocal" );
-
-	if ( TMath::Abs( tofPid.zLocal() ) > 2.8 )
-		return false;
-	passTrackCut( "zLocal" );
 
 	/**
 	 * Post Cut Hook

@@ -26,11 +26,30 @@ void StRcpPicoMaker::analyzeTrack( Int_t iNode, Int_t iGoodTrack ){
 	mData.pPt[ iGoodTrack ] 		= pMom.perp() * tGlobal->charge();
 	mData.pEta[ iGoodTrack ] 		= pMom.pseudoRapidity();
 
-	// PID variables
-	if ( tofpid.beta() > 0.01 )
-		mData.beta[ iGoodTrack ] 		= (UShort_t)(tofpid.beta() * 20000);
-	else
-		mData.beta[ iGoodTrack ] 		= (UShort_t)0;
+	// get the tof pid
+	StMuBTofPidTraits tofPid = tGlobal->btofPidTraits();
+
+
+	mData.matchFlag[ iGoodTrack ]			= tofPid.matchFlag();
+	// defaults
+	mData.beta[ iGoodTrack ] 		= 0;
+	mData.yLocal[ iGoodTrack ]		= 0;
+	mData.zLocal[ iGoodTrack ]		= 0;
+
+	if ( tofPid.matchFlag() >= 1 ){
+		// PID variables
+		if ( tofpid.beta() > 0.01 )
+			mData.beta[ iGoodTrack ] 		= (UShort_t)(tofpid.beta() * 20000);
+		else
+			mData.beta[ iGoodTrack ] 		= (UShort_t)0;
+
+		
+		mData.yLocal[ iGoodTrack ]			= tofPid.yLocal();
+		mData.zLocal[ iGoodTrack ]			= tofPid.zLocal();
+		
+			
+	}
+
 	
 	mData.dedx[ iGoodTrack ] 			= (UShort_t) ((tGlobal->dEdx()*1e6) * 1000);
 }
@@ -64,7 +83,10 @@ void StRcpPicoMaker::bookNtuples(){
 
 	mTree->Branch("dedx",				mData.dedx,	"dedx[nTracks]/s");
 	mTree->Branch("beta",				mData.beta,	"beta[nTracks]/s");
-
+	
+	mTree->Branch("matchFlag",			mData.matchFlag, "matchFlag[nTracks]/b");
+	mTree->Branch("yLocal",				mData.yLocal,	"yLocal[nTracks]/F");
+	mTree->Branch("zLocal",				mData.zLocal,	"zLocal[nTracks]/F");
 
 	return;
 }

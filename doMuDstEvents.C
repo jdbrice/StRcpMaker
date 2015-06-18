@@ -10,7 +10,7 @@ void doMuDstEvents( const Char_t *fileList = "small.lis",
 					const Char_t *ntuplename = "ntuple.root")
 {
   	Int_t nEvents = 100000000; //1000000;
-  	Int_t nfiles 	= 10000;
+  	Int_t nfiles 	= 25;
 
 	//
 	// First load some shared libraries we need
@@ -58,8 +58,8 @@ void doMuDstEvents( const Char_t *fileList = "small.lis",
 	                                                nfiles
 	                                              );
 
-	//StRcpQAMaker *rcpQA = new StRcpQAMaker("rcpQA", ("qa_" + string(ntuplename) ).c_str() );
-	StRcpPicoMaker *rcpPico = new StRcpPicoMaker("rcpPico", ntuplename);
+	StRcpQAMaker *rcpQA = new StRcpQAMaker("rcpQA", ("qa_" + string(ntuplename) ).c_str() );
+	StRcpPicoMaker *rcpPico = new StRcpPicoMaker("rcpPico", ("tuple_" + string(ntuplename)).c_str() ) ;
 
 	// Initialize chain
 	Int_t iInit = chain->Init();

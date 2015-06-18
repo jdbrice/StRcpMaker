@@ -87,7 +87,6 @@ protected:
 	virtual void passTrackCut( string name );
 	virtual void preTrackCuts( StMuTrack *primaryTrack );
 	virtual void postTrackCuts( StMuTrack *primaryTrack );
-	virtual void postTrackCuts( StMuTrack *primaryTrack );
 
 	virtual void analyzeTrack( Int_t iNode, Int_t iGoodTrack );
 
