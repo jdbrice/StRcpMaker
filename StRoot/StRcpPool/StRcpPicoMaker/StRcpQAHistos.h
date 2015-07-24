@@ -26,20 +26,23 @@ public:
 		
 		pre_refMult = new TH1I( "event_pre_refMult", "Pre Raw RefMult", 400, 0, 400 );
 		refMult = new TH1I( "event_refMult", "Raw RefMult", 400, 0, 400 );
-		corrRefMult = new TH1F( "event_corrRefMult", "Corr RefMult", 400, 0, 400 );
+		corrRefMult = new TH1F( "event_corrRefMult", "Corr RefMult", 1000, 0, 500 );
 		refMultBins = new TH1F( "event_refMultBins", "Corr RefMult Bins", 10, 0, 10 );
 
 		pre_vZ = new TH1F( "event_pre_vZ", "pre vZ", 400, -200, 200 );
 		vZ = new TH1F( "event_vZ", "vZ", 100, -50, 50 );
 
-		pre_vX_vY = new TH2F( "event_pre_vX_vY", "pre vX vY", 200, -1, 1, 200, -1, 1 );
-		vX_vY = new TH2F( "event_vX_vY", "vX vY", 200, -1, 1, 200, -1, 1 );
+		pre_vX_vY = new TH2F( "event_pre_vX_vY", "pre vX vY", 150, -3, 3, 150, -3, 3 );
+		vX_vY = new TH2F( "event_vX_vY", "vX vY", 150, -3, 3, 150, -3, 3 );
 
-		pre_vR = new TH1F( "event_pre_vR", "", 300, 0, 3 );
+		pre_vR = new TH1F( "event_pre_vR", "", 400, 0, 4 );
 		vR = new TH1F( "event_vR", "", 110, 0, 1.1 );
 
 		pre_nTofMatchA = new TH1F( "event_pre_nTofMatchA", "", 450, 0, 450 );
 		nTofMatchA = new TH1F( "event_nTofMatchA", "", 400, 0, 400 );
+
+		pre_nTofMatchA_corrRefMult = new TH2F( "event_pre_nTofMatchA_corrRefMult", "", 400, 0, 400, 400, 0, 400 ); // x = ntof, y = refmult
+		nTofMatchA_corrRefMult = new TH2F( "event_nTofMatchA_corrRefMult", "", 400, 0, 400, 400, 0, 400 ); // x = ntof, y = refmult
 
 
 		/**
@@ -75,15 +78,12 @@ public:
 	}
 	~StRcpQAHistos();
 
-
-//protected:
-
 	/**
 	 * Event Histos
 	 */
 	TH1I *eventCuts, *nTrack_refMult, *refMult, *pre_refMult;
 	TH1F *pre_vZ, *pre_vR, *pre_nTofMatchA;
-	TH2F *pre_vX_vY, *vX_vY;
+	TH2F *pre_vX_vY, *vX_vY, *pre_nTofMatchA_corrRefMult, *nTofMatchA_corrRefMult;
 	TH1F *vZ, *vR, *nTofMatchA, *corrRefMult, *refMultBins;
 
 
@@ -100,8 +100,6 @@ public:
 	 * Analysis 
 	 */
 	TH1F * ptSpectra[9];
-
-	
 
 
 };

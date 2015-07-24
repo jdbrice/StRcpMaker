@@ -6,4 +6,6 @@ grid*.xml
 temp_gccflags.c
 *.root
 .sl64_gcc447
-StRcpEfficiencyMaker
+*.tar
+*.tar.gz
+

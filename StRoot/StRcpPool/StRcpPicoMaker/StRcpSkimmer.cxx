@@ -49,11 +49,11 @@
 #include "StBTofUtil/StBTofHitCollection.h"
 #include "StMuDSTMaker/COMMON/StMuDstMaker.h"
 #include "StMuDSTMaker/COMMON/StMuDst.h"
-#include "StMuDSTMaker/COMMON/StMuBTofHit.h"
-#include "StMuDSTMaker/COMMON/StMuTrack.h"
-#include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
-#include "StMuDSTMaker/COMMON/StMuBTofPidTraits.h"
-#include "StMuDSTMaker/COMMON/StMuTriggerIdCollection.h"
+// #include "StMuDSTMaker/COMMON/StMuBTofHit.h"
+// #include "StMuDSTMaker/COMMON/StMuTrack.h"
+// #include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
+// #include "StMuDSTMaker/COMMON/StMuBTofPidTraits.h"
+// #include "StMuDSTMaker/COMMON/StMuTriggerIdCollection.h"
 
 #include <StVpdTriggerDetector.h>
 #include "StRcpSkimmer.h"
@@ -203,11 +203,6 @@ Bool_t StRcpSkimmer::keepEvent(){
 	if ( !muEvent )
 		return false;
 
-	runId = muEvent->runId();
-	if ( refmultCorrUtil->isBadRun( muEvent->runId() ) )
-		return false;
-	passEventCut( "BadRun" );
-
 	//-- read in TOF info
 	StBTofHeader* tofHeader = muDst->btofHeader();
 
@@ -240,17 +235,37 @@ Bool_t StRcpSkimmer::keepEvent(){
 		return false;
 	passEventCut( "Trigger" );
 
-	// The Pre event cuts hook
-	preEventCuts();
 
 	StThreeVectorD pVtx(-999., -999., -999.);  
 	if( !muDst->primaryVertex() ) {
 		//LOG_INFO << "No Primary Vertex" << endm;
 		return false;
 	}
+	passEventCut( "VertexExists" );
 
 	nTofMatchedTracks = nTofMatchedTracksA();
 	pVtx = muDst->primaryVertex()->position();
+
+	// Initialize the refMult Corr
+	//refmultCorrUtil->init( muEvent->runId() );
+	//refmultCorrUtil->initEvent( muEvent->refMult(), pVtx.z() );
+
+	corrRefMult 	= (Float_t)0;//refmultCorrUtil->getRefMultCorr();
+	cent9  			= 0;//refmultCorrUtil->getCentralityBin9();
+	cent16  		= 0;//refmultCorrUtil->getCentralityBin16();
+	eventWeight  	= 0;//refmultCorrUtil->getWeight();
+
+	//LOG_WARN << "StRMCUtil Sanity : Run 15053029" << //refmultCorrUtil->isBadRun( 15053029 ) << endl;
+
+	runId = muEvent->runId();
+	//if ( //refmultCorrUtil->isBadRun( muEvent->runId() ) )
+	//	return false;
+	passEventCut( "BadRun" );
+
+	// The Pre event cuts hook
+	preEventCuts();
+
+	
 
 	// Initialize the vertex	
 	// float xOffset = - 0.09797;		// 11GeV
@@ -264,14 +279,6 @@ Bool_t StRcpSkimmer::keepEvent(){
 	pY = pVtx.y() + yOffset;
 	pZ = pVtx.z();
 
-
-	// Initialize the refMult Corr
-	refmultCorrUtil->init( muEvent->runId() );
-	refmultCorrUtil->initEvent( muEvent->refMult(), pVtx.z() );
-	corrRefMult 	= (Float_t)refmultCorrUtil->getRefMultCorr();
-	cent9  			= refmultCorrUtil->getCentralityBin9();
-	cent16  		= refmultCorrUtil->getCentralityBin16();
-	eventWeight  	= refmultCorrUtil->getWeight();
 
 	// dont need to keep the events in 80-100% centrality range
 	if ( cent9 < 0 )
@@ -407,7 +414,7 @@ StRcpSkimmer::~StRcpSkimmer( ){
  */
 Int_t StRcpSkimmer::Init( ){
 
-	refmultCorrUtil  = CentralityMaker::instance()->getRefMultCorr();
+	//refmultCorrUtil  = CentralityMaker::instance()->getRefMultCorr();
 
 	return kStOK;
 }

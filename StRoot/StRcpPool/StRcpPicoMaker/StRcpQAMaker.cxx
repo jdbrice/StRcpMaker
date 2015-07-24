@@ -3,7 +3,7 @@
 ClassImp(StRcpQAMaker);
 
 void StRcpQAMaker::postTrackLoop( Int_t nPrimaryGood ){
-	histos->nTrack_refMult->Fill( refmultCorrUtil->getRefMultCorr(), nPrimaryGood  );
+	histos->nTrack_refMult->Fill( corrRefMult, nPrimaryGood  );
 }
 
 void StRcpQAMaker::passEventCut( string name ){
@@ -22,6 +22,7 @@ void StRcpQAMaker::preEventCuts(){
 	histos->pre_vR->Fill( TMath::Sqrt( pX*pX + pY*pY ) );
 	histos->pre_nTofMatchA->Fill( nTofMatchedTracks );
 	histos->pre_refMult->Fill( muEvent->refMult() );
+	histos->pre_nTofMatchA_corrRefMult->Fill( nTofMatchedTracks, corrRefMult );
 
 }
 
@@ -33,8 +34,9 @@ void StRcpQAMaker::postEventCuts(){
 	histos->vR->Fill( TMath::Sqrt( pX*pX + pY*pY ) );
 	histos->nTofMatchA->Fill( nTofMatchedTracks );
 	histos->refMult->Fill( muEvent->refMult() );
-	histos->corrRefMult->Fill( refmultCorrUtil->getRefMultCorr(), eventWeight );
+	histos->corrRefMult->Fill( corrRefMult, eventWeight );
 	histos->refMultBins->Fill( cent9, eventWeight );
+	histos->nTofMatchA_corrRefMult->Fill( nTofMatchedTracks, corrRefMult );
 }
 
 void StRcpQAMaker::preTrackCuts( StMuTrack *primaryTrack ){
