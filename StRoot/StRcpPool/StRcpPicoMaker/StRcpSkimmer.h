@@ -14,34 +14,6 @@
 // StRcpPicoMaker
 #include "StRcpTreeData.h"
 
-// #include "StMuDSTMaker/COMMON/StMuUtilities.h"
-// #include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
-// #include "StMuDSTMaker/COMMON/StMuDst.h"
-// #include "StMuDSTMaker/COMMON/StMuEvent.h"
-// #include "StMuDSTMaker/COMMON/StMuDstMaker.h"
-// #include "StMuDSTMaker/COMMON/StMuTrack.h"
-
-// #include "StThreeVectorF.hh"
-
-// #include "StThreeVectorD.hh"
-// #include "StPhysicalHelixD.hh"
-
-/*
-class StEvent;
-class StTrack;
-class StGlobalTrack;
-class StHelix;
-
-class StTrackGeometry;
-class StBTofGeometry; 
-class StBTofCollection;
-class StBTofHitCollection;   
-class StSPtrVecBTofHit;      
-class StMuDst;
-
-class TFile;
-class TTree;*/
-
 class StMuDstMaker;
 class StMuDst;
 class StMuEvent;

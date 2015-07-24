@@ -1,6 +1,13 @@
 #include "StRcpPicoMaker.h"
 
 
+#include "StMuDSTMaker/COMMON/StMuUtilities.h"
+#include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
+#include "StMuDSTMaker/COMMON/StMuDst.h"
+#include "StMuDSTMaker/COMMON/StMuEvent.h"
+#include "StMuDSTMaker/COMMON/StMuDstMaker.h"
+#include "StMuDSTMaker/COMMON/StMuTrack.h"
+
 ClassImp(StRcpPicoMaker);
 
 

@@ -1,65 +1,17 @@
-#include <iostream>
-#include <math.h>
-#include <vector>
-#include <stdlib.h>
-#include <stdio.h>
-#include <algorithm>
-#include <iterator>
+#include "StRcpSkimmer.h"
 
-#include "StEventTypes.h"
-#include "Stypes.h"
-#include "StThreeVectorF.hh"
-#include "StMeasuredPoint.h"
-#include "StDedxPidTraits.h"
-#include "StBTofPidTraits.h"
-#include "StTrackPidTraits.h"
-#include "StBTofPidTraits.h"
-#include "StBTofCollection.h"
-#include "StBTofHit.h"
-#include "StBTofHeader.h"
-#include "StarClassLibrary/StParticleTypes.hh"
-#include "StarClassLibrary/StParticleDefinition.hh"
-#include "StMuDSTMaker/COMMON/StMuUtilities.h"
-#include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
+//// StRoot
+// StMuDst
 #include "StMuDSTMaker/COMMON/StMuDst.h"
 #include "StMuDSTMaker/COMMON/StMuEvent.h"
 #include "StMuDSTMaker/COMMON/StMuDstMaker.h"
 #include "StMuDSTMaker/COMMON/StMuTrack.h"
-#include "StHelix.hh"
-#include "StTrackGeometry.h"
-#include "StDcaGeometry.h"
-#include "StParticleTypes.hh"
-#include "StTpcDedxPidAlgorithm.h"
-#include "StHit.h"
-#include "StAssociationMaker/StTrackPairInfo.hh"
-#include "StEventUtilities/StuRefMult.hh"
-#include "PhysicalConstants.h"
-#include "StPhysicalHelixD.hh"
-#include "TTree.h"
-#include "TFile.h"
-#include "TH1.h"
-#include "TH2.h"
+#include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
+
 #include "StMemoryInfo.hh"
 #include "StMessMgr.h"
 #include "StTimer.hh"
 
-#include "StBTofUtil/tofPathLength.hh"
-#include "StBTofUtil/StBTofGeometry.h"
-#include "StBTofUtil/StBTofDaqMap.h"
-#include "StBTofUtil/StBTofHitCollection.h"
-#include "StMuDSTMaker/COMMON/StMuDstMaker.h"
-#include "StMuDSTMaker/COMMON/StMuDst.h"
-// #include "StMuDSTMaker/COMMON/StMuBTofHit.h"
-// #include "StMuDSTMaker/COMMON/StMuTrack.h"
-// #include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
-// #include "StMuDSTMaker/COMMON/StMuBTofPidTraits.h"
-// #include "StMuDSTMaker/COMMON/StMuTriggerIdCollection.h"
-
-#include <StVpdTriggerDetector.h>
-#include "StRcpSkimmer.h"
-
-
-#include "StEnumerations.h"
 
 
 /**
