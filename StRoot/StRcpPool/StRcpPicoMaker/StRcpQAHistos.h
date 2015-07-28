@@ -21,6 +21,8 @@ public:
 			Event Cuts
 		 */
 		eventCuts = new TH1I( "event_cuts", "Event Cuts", 10, 0, 10 );
+		pre_runIds = new TH2I( "pre_run_ids", "Run Ids Pre-Rejection; Day - 46; Run# for Day", 25, 0, 25, 150, 0, 150 );
+		runIds = new TH2I( "run_ids", "Run Ids; Day - 46; Run# for Day", 25, 0, 25, 150, 0, 150 );
 		
 		nTrack_refMult = new TH1I( "event_nTrack_refMult", "nTrack vs. RefMult", 400, 0, 400 );
 		
@@ -67,13 +69,15 @@ public:
 		pre_dca = new TH1I( "track_pre_dca", "", 80, 0, 2.0  );
 		dca = new TH1I( "track_dca", "", 80, 0, 2.0 );
 
-		pre_yLocal = new TH1I( "track_pre_yLocal", "", 80, -2.0, 2.0  );
+		pre_yLocal = new TH1I( "track_pre_yLocal", "", 80, -2.5, 2.5  );
 		yLocal = new TH1I( "track_yLocal", "", 80, -2.0, 2.0 );
 
-		pre_zLocal = new TH1I( "track_pre_zLocal", "", 120, -3.0, 3.0  );
+		pre_zLocal = new TH1I( "track_pre_zLocal", "", 120, -3.5, 3.5  );
 		zLocal = new TH1I( "track_zLocal", "", 120, -3.0, 3.0 );
 
 		trackBeta = new TH2F( "trackBeta", "beta", 80, 0, 5, 200, -.5, 3 );
+
+		//eta_phi = new TH2F( "eta_phi", "", 80, 0, 5, 200, -.5, 3 );
 
 	}
 	~StRcpQAHistos();
@@ -81,6 +85,7 @@ public:
 	/**
 	 * Event Histos
 	 */
+	TH2I *runIds, *pre_runIds;
 	TH1I *eventCuts, *nTrack_refMult, *refMult, *pre_refMult;
 	TH1F *pre_vZ, *pre_vR, *pre_nTofMatchA;
 	TH2F *pre_vX_vY, *vX_vY, *pre_nTofMatchA_corrRefMult, *nTofMatchA_corrRefMult;
@@ -93,7 +98,7 @@ public:
 	TH1I *trackCuts;
 	TH1I * pre_nHitsFit, *pre_nHitsDedx, *pre_nHitsFitOverPoss, *pre_ptRatio, *pre_dca;
 	TH1I * nHitsFit, *nHitsDedx, *nHitsFitOverPoss, *ptRatio, *dca, *pre_yLocal, *pre_zLocal, *yLocal, *zLocal;
-	TH2F * pre_ptRatio2D, *ptRatio2D;
+	TH2F * pre_ptRatio2D, *ptRatio2D, *eta_phi, *pre_eta_phi;
 	TH2F * trackBeta;
 
 	/**

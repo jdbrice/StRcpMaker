@@ -1,6 +1,4 @@
 #include "StRcpQAMaker.h"
-
-
 #include "StMuDSTMaker/COMMON/StMuUtilities.h"
 #include "StMuDSTMaker/COMMON/StMuPrimaryVertex.h"
 #include "StMuDSTMaker/COMMON/StMuDst.h"
@@ -11,12 +9,26 @@
 
 ClassImp(StRcpQAMaker);
 
+int StRcpQAMaker::firstDay = 15046000; // first day of the Run14_AuAu15
+
 void StRcpQAMaker::postTrackLoop( Int_t nPrimaryGood ){
 	histos->nTrack_refMult->Fill( corrRefMult, nPrimaryGood  );
 }
 
 void StRcpQAMaker::passEventCut( string name ){
 	histos->eventCuts->Fill( name.c_str(), 1 );
+
+	if ( "Trigger" == name ){
+		
+		StMuEvent *muEvent = muDst->event();
+		int runId = muEvent->runId();	
+
+		int day = (runId - StRcpQAMaker::firstDay) / 1000; // day of run from first ( indexed at 0)
+		int drn = (runId - (StRcpQAMaker::firstDay + day * 1000) ); // run in day
+
+		histos->pre_runIds->Fill( day, drn );
+		//cout << "Filled Day=" << day << ", " << drn << endl << endm;
+	}
 }
 
 void StRcpQAMaker::passTrackCut( string name ){
@@ -25,6 +37,7 @@ void StRcpQAMaker::passTrackCut( string name ){
 
 void StRcpQAMaker::preEventCuts(){
 	StMuEvent *muEvent = muDst->event();
+	int runId = muEvent->runId();
 
 	histos->pre_vZ->Fill( pZ );
 	histos->pre_vX_vY->Fill( pX, pY );
@@ -33,6 +46,13 @@ void StRcpQAMaker::preEventCuts(){
 	histos->pre_refMult->Fill( muEvent->refMult() );
 	histos->pre_nTofMatchA_corrRefMult->Fill( nTofMatchedTracks, corrRefMult );
 
+	int firstDay = 15046000;	// first day of the Run14_AuAu15
+
+	int day = (runId - firstDay) / 1000; // day of run from first ( indexed at 0)
+	int drn = (runId - (firstDay + day * 1000) ); // run in day
+
+	//cout << "Day= " << day << ", Run=" << drn << endl << endm;
+	histos->runIds->Fill( day, drn );
 }
 
 void StRcpQAMaker::postEventCuts(){

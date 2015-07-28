@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StRcpSkimmerCuts>
+
+	<!-- inclusive bounds -->
+
+	<!-- Analysis Event Cuts -->
+	<Event>
+		<zVertex min="-30" max="30" />
+		<rVertex min="0" max="1.0" />
+		<nTofMatch min="3" max="30000" />
+	</Event>
+
+
+	<!-- Loosened Track Cuts
+		Saves a lot of space over no cuts
+		loose enough to include all possible lower bounds on cuts for systematics -->
+	<Track> 
+		<nHitsFit min="10" max="1000"/> <!-- nominally min=16 -->
+		<nHitsDedx min="4" max="1000"/> <!-- nominally min=11 -->
+		<nHitsRatio min="0.40" max="1.0"/> <!-- nominally min=0.52 -->
+
+
+		<pt min="0.1" max="10"/>
+		<ptRatio min="0.1" max="2.42857"/>  <!-- nominally : min="0.7" max="1.42857" -->
+
+		<dca min="0" max="1.5"/> <!-- nominally max=1.0 -->
+
+		<!-- Doesn't do TOF cuts - so that TOF Eff can be done later -->
+
+	</Track>
+
+
+
+</StRcpSkimmerCuts>

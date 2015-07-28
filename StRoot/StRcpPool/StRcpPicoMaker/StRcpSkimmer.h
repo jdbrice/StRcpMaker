@@ -4,7 +4,6 @@
 
 
 // StRefMultCorr
-#include "StRcpSkimmer.h"
 #include "StRefMultCorr/StRefMultCorr.h"
 #include "StRefMultCorr/CentralityMaker.h"
 
@@ -13,6 +12,10 @@
 
 // StRcpPicoMaker
 #include "StRcpTreeData.h"
+
+// roobarb
+#include "XmlConfig.h"
+#include "ConfigRange.h"
 
 class StMuDstMaker;
 class StMuDst;
@@ -30,9 +33,21 @@ class StRcpSkimmer : public StMaker {
 	Int_t  FinishRun(int runnumber);
 	Int_t  Finish();
 
-	
+	static int badRuns[];
+	static int nBadRuns;
+	map< int, bool > badRunMap;
+
 
 protected:
+
+	
+	jdb::XmlConfig * cfgCuts;
+	// event
+	jdb::ConfigRange *cut_vZ, *cut_vR, *cut_nTofMatch;
+	//track
+	jdb::ConfigRange *cut_nHitsFit, *cut_nHitsDedx, *cut_nHitsRatio;
+	jdb::ConfigRange *cut_pt, *cut_ptRatio, *cut_dca, *cut_yLocal, *cut_zLocal;
+
 
 	Int_t nTofMatchedTracksA();
 

@@ -9,7 +9,7 @@ Int_t iEvt=0,istat=0,nEvents=0;
 void doMuDstEvents( const Char_t *fileList = "small.lis",
 					const Char_t *ntuplename = "ntuple.root")
 {
-  	Int_t nEvents = 100000000; //1000000;
+  	Int_t nEvents = 10000000000; //1000000;
   	Int_t nfiles 	= 25000;
 
 	//

@@ -13,6 +13,7 @@ class StRcpQAMaker : public StRcpSkimmer {
 	
 private:
 	
+	static int firstDay;
 	StRcpQAHistos * histos;
 
 	virtual void passTrackCut( string name );

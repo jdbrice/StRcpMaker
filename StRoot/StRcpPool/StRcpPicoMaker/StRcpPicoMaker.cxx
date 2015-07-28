@@ -28,10 +28,18 @@ void StRcpPicoMaker::analyzeTrack( Int_t iNode, Int_t iGoodTrack ){
 
 	// Momentum
 	StThreeVectorF pMom 			= tPrimary->momentum();
+	StThreeVectorF gMom 			= tGlobal->momentum();
 
 	mData.pP[ iGoodTrack ] 			= pMom.magnitude();
 	mData.pPt[ iGoodTrack ] 		= pMom.perp() * tGlobal->charge();
+	mData.gPt[ iGoodTrack ] 		= gMom.perp();
 	mData.pEta[ iGoodTrack ] 		= pMom.pseudoRapidity();
+
+	mData.nHitsFit[ iGoodTrack ] 	= tGlobal->nHitsFit(); // use kTpcId ??
+	mData.nHitsDedx[ iGoodTrack ] 	= tGlobal->nHitsDedx();
+	mData.nHitsPossible[ iGoodTrack ] = tGlobal->nHitsPoss(); // use kTpcId ??
+
+	mData.dca[ iGoodTrack ]			= (Float_t)tPrimary->dcaGlobal().magnitude();
 
 	// get the tof pid
 	StMuBTofPidTraits tofPid = tGlobal->btofPidTraits();
@@ -85,8 +93,15 @@ void StRcpPicoMaker::bookNtuples(){
 	mTree->Branch("nTracks",			&mData.nTracks,"nTracks/I");
 
 	mTree->Branch("ppT",				mData.pPt,	"ppT[nTracks]/F");
+	mTree->Branch("gpT",				mData.gPt,	"gpT[nTracks]/F");
 	mTree->Branch("pP",					mData.pP,	"pP[nTracks]/F");
 	mTree->Branch("pEta",				mData.pEta,	"pEta[nTracks]/F");
+
+	mTree->Branch("dca", 				mData.dca, "dca[nTracks]/F");
+
+	mTree->Branch("nHitsFit", 			mData.nHitsFit, "nHitsFit[nTracks]/b");
+	mTree->Branch("nHitsDedx", 			mData.nHitsDedx, "nHitsDedx[nTracks]/b");
+	mTree->Branch("nHitsPossible", 		mData.nHitsPossible, "nHitsPossible[nTracks]/b");
 
 	mTree->Branch("dedx",				mData.dedx,	"dedx[nTracks]/s");
 	mTree->Branch("beta",				mData.beta,	"beta[nTracks]/s");
