@@ -10,9 +10,6 @@
 // StRoot
 #include "StMaker.h"
 
-// StRcpPicoMaker
-#include "StRcpTreeData.h"
-
 // roobarb
 #include "XmlConfig.h"
 #include "ConfigRange.h"
@@ -26,7 +23,7 @@ class StRcpSkimmer : public StMaker {
  public:
 	StRcpSkimmer(const Char_t *name, const Char_t *outname);
 	~StRcpSkimmer();
-
+	 
 	Int_t  Init();
 	Int_t  InitRun(int runnumber);
 	Int_t  Make();

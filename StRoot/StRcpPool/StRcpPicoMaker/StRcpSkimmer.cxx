@@ -155,6 +155,8 @@ Bool_t StRcpSkimmer::keepEvent(){
 	if ( !muEvent )
 		return false;
 
+	passEventCut( "MuDstEvent" );
+
 	//-- read in TOF info
 	StBTofHeader* tofHeader = muDst->btofHeader();
 
@@ -187,6 +189,12 @@ Bool_t StRcpSkimmer::keepEvent(){
 		return false;
 	passEventCut( "Trigger" );
 
+	if ( badRunMap.find( runId ) != badRunMap.end() && badRunMap[ runId ] == true ){
+		//cout << runId << " is BAD " << endl << endm;
+		return false;
+	}
+	passEventCut( "BadRun" );
+
 
 	StThreeVectorD pVtx(-999., -999., -999.);  
 	if( !muDst->primaryVertex() ) {
@@ -211,13 +219,7 @@ Bool_t StRcpSkimmer::keepEvent(){
 	runId = muEvent->runId();
 	
 	//cout << " testing bad run : 15070010 " << ( badRunMap.find( 15070010 ) != badRunMap.end() && badRunMap[ 15070010 ] == true ) << endl << endm;
-	if ( badRunMap.find( runId ) != badRunMap.end() && badRunMap[ runId ] == true ){
-		//cout << runId << " is BAD " << endl << endm;
-		return false;
-	}
-
-
-	passEventCut( "BadRun" );
+	
 
 	// The Pre event cuts hook
 	preEventCuts();

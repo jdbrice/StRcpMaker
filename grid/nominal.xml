@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<job maxFilesPerProcess="4" filesPerHour="500">
+<job maxFilesPerProcess="4" filesPerHour="200" fileListSyntax="xrootd">
 	<command>
 		starver SL14i
-		root4star -b -q doMuDstEvents.C\(\"$FILELIST\",\"$JOBID.root\"\) &gt;&amp; ${JOBID}.log
+		root4star -b -q -l 'doMuDstEvents.C("'$FILELIST'","'$JOBID.root'")' &gt;&amp; log_${JOBID}.log
 	</command>
 
 	<stdout URL="file:/star/institutions/rice/jdb/run14/auau15/rcp/rcpData/nominal/log/$JOBID.out" />
 	<stderr URL="file:/star/institutions/rice/jdb/run14/auau15/rcp/rcpData/nominal/log/$JOBID.err" />
 	
-	<input URL="catalog:star.bnl.gov?collision=auau15,production=P14ii,filetype=daq_reco_mudst,filename~st_physics,runnumber[]15053000-15071000" nFiles="5000000" />
+	<input URL="catalog:star.bnl.gov?collision=auau15,production=P14ii,filetype=daq_reco_mudst,filename~st_physics,runnumber[]15053000-15071000" nFiles="1000000" />
+	
 
 	    <output fromScratch="*" toURL="file:/star/institutions/rice/jdb/run14/auau15/rcp/rcpData/nominal/"/>
 

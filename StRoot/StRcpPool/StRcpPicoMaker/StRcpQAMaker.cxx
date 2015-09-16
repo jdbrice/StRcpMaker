@@ -18,16 +18,18 @@ void StRcpQAMaker::postTrackLoop( Int_t nPrimaryGood ){
 void StRcpQAMaker::passEventCut( string name ){
 	histos->eventCuts->Fill( name.c_str(), 1 );
 
-	if ( "Trigger" == name ){
-		
+	if ( "Trigger" == name || "BadRun" == name ){
 		StMuEvent *muEvent = muDst->event();
 		int runId = muEvent->runId();	
 
 		int day = (runId - StRcpQAMaker::firstDay) / 1000; // day of run from first ( indexed at 0)
 		int drn = (runId - (StRcpQAMaker::firstDay + day * 1000) ); // run in day
 
-		histos->pre_runIds->Fill( day, drn );
-		//cout << "Filled Day=" << day << ", " << drn << endl << endm;
+		if ( "Trigger" == name ){
+			histos->pre_runIds->Fill( day, drn );
+		} else if ( "BadRun" == name ){
+			histos->runIds->Fill( day, drn );
+		} 
 	}
 }
 
@@ -45,14 +47,6 @@ void StRcpQAMaker::preEventCuts(){
 	histos->pre_nTofMatchA->Fill( nTofMatchedTracks );
 	histos->pre_refMult->Fill( muEvent->refMult() );
 	histos->pre_nTofMatchA_corrRefMult->Fill( nTofMatchedTracks, corrRefMult );
-
-	int firstDay = 15046000;	// first day of the Run14_AuAu15
-
-	int day = (runId - firstDay) / 1000; // day of run from first ( indexed at 0)
-	int drn = (runId - (firstDay + day * 1000) ); // run in day
-
-	//cout << "Day= " << day << ", Run=" << drn << endl << endm;
-	histos->runIds->Fill( day, drn );
 }
 
 void StRcpQAMaker::postEventCuts(){

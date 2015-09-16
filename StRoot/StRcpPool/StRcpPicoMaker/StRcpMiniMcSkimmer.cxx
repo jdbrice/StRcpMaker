@@ -201,7 +201,10 @@ bool StRcpMiniMcSkimmer::keepEvent(){
 		return false;
 	passEventCut( "vR");
 
-	refmultCorrUtil->init( event->runId() );
+	int rId = event->runId();
+	if ( gid < 0 )
+		rId = 15055000;
+	refmultCorrUtil->init( rId );
 	refmultCorrUtil->initEvent(event->nUncorrectedPrimaries(), event->vertexZ() );
 
 	corrRefMult 	= refmultCorrUtil->getRefMultCorr();
@@ -237,9 +240,10 @@ Bool_t StRcpMiniMcSkimmer::keepTrack( StMiniMcPair * track ){
 	preTrackCuts( track );
 
 	// one plc at a time please
-	if ( track->geantId() != gid )
+	// gid = -1 for UrQMD with lots of plcs
+	if ( gid >= 0 && track->geantId() != gid )
 		return false;
-	if ( track->charge() != plcCharge() )
+	if ( gid >= 0 && track->charge() != plcCharge() )
 		return false;
 
 
@@ -313,19 +317,19 @@ int StRcpMiniMcSkimmer::plcCharge(){
 
 string StRcpMiniMcSkimmer::plcName(  ){
 	if ( 8 == gid )
-		return "Pi_Plus";
+		return "Pi_p";
 	if ( 9 == gid )
-		return "Pi_Minus";
+		return "Pi_n";
 
 	if ( 11 == gid )
-		return "K_Plus";
+		return "K_p";
 	if ( 12 == gid )
-		return "K_Minus";
+		return "K_n";
 
 	if ( 14 == gid )
-		return "P";
+		return "P_p";
 	if ( 15 == gid )
-		return "P_Bar";
+		return "P_n";
 	return "UNKOWN";
 }
 

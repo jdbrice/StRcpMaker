@@ -6,29 +6,24 @@ class     St_db_Maker;
 St_db_Maker *dbMk =0;
 
 Int_t iEvt=0,istat=0,nEvents=0;
-void doMuDstEvents( const Char_t *fileList = "small.lis",
+void test( const Char_t *fileList = "small.lis",
 					const Char_t *ntuplename = "ntuple.root")
 {
-  	Int_t nEvents = 50000000; //1000000;
-  	Int_t nfiles 	= 1000;
-
-
+  	Int_t nEvents = 10000000000; //1000000;
+  	Int_t nfiles 	= 25000;
 
 	//
 	// First load some shared libraries we need
 	if (gClassTable->GetID("TTable") < 0) {
-		gSystem->Load("libStar");
-		gSystem->Load("libPhysics");
+	gSystem->Load("libStar");
+	gSystem->Load("libPhysics");
 	}  
-	gROOT->Macro("loadMuDst.C");
 	gROOT->LoadMacro("$STAR/StRoot/StMuDSTMaker/COMMON/macros/loadSharedLibraries.C");
 	loadSharedLibraries();
 	
-	gSystem ->Load("StChain");
-    gSystem ->Load("StMiniMcEvent");
-	gSystem->Load("StRefMultCorr");
-	gSystem->Load("StRcpPicoMaker");
 	
+	gSystem->Load("StRcpPicoMaker");
+	gSystem->Load("StRefMultCorr");
 
 	// Handling depends on whether file is a ROOT file or XDF file
 	chain  = new StChain("StChain");
@@ -42,8 +37,8 @@ void doMuDstEvents( const Char_t *fileList = "small.lis",
 	                                                nfiles
 	                                              );
 
-	StRcpQAMaker *rcpQA = new StRcpQAMaker("rcpQA", ("qa_" + string(ntuplename) ).c_str() );
-	StRcpPicoMaker *rcpPico = new StRcpPicoMaker("rcpPico", ("tuple_" + string(ntuplename)).c_str() ) ;
+	StDansTestMaker *rcpQA = new StDansTestMaker("rcpQA", ("qa_" + string(ntuplename) ).c_str() );
+	
 
 	// Initialize chain
 	Int_t iInit = chain->Init();

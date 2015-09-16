@@ -39,7 +39,7 @@ void StRcpMiniMcPicoMaker::analyzeTrackPair( StMiniMcPair * track, Int_t iGoodTr
 	
 	mData.beta[ iGoodTrack ] 			= (UShort_t)(0.75 * 20000);
 		
-	mData.yLocal[ iGoodTrack ]			= 0;
+	mData.yLocal[ iGoodTrack ]			= track->ptMc();
 	mData.zLocal[ iGoodTrack ]			= 0;
 
 	
